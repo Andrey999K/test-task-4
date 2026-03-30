@@ -6,6 +6,7 @@ import morgan from "morgan";
 import { env } from "./config/env";
 import { testConnection } from "./config/database";
 import { logger } from "./utils/log";
+import { categoryRoutes } from "./routes/category.routes";
 
 
 const app = express()
@@ -22,6 +23,8 @@ if (env.NODE_ENV === "development") app.use(morgan("dev"));
 app.get('/', (_req: Request, res: Response) => {
   res.send('Hello World!')
 })
+
+app.use("/api/categories", categoryRoutes);
 
 app.listen(port, async () => {
   await testConnection();
