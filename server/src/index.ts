@@ -4,6 +4,8 @@ import compression from "compression";
 import cors from "cors";
 import morgan from "morgan";
 import { env } from "./config/env";
+import { testConnection } from "./config/database";
+import { logger } from "./utils/log";
 
 
 const app = express()
@@ -21,6 +23,7 @@ app.get('/', (_req: Request, res: Response) => {
   res.send('Hello World!')
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+app.listen(port, async () => {
+  await testConnection();
+  logger.info(`Server listening on port ${port}`);
+});
