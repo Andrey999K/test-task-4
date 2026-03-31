@@ -1,6 +1,6 @@
 import { type Request, type Response } from "express";
 import { logger } from "@/utils/log";
-import { categoryService } from "@/services/category.service";
+import { categoryModel } from "@/models/category.model";
 
 export const categoryController = {
   async getAll(req: Request, res: Response): Promise<void> {
@@ -8,7 +8,7 @@ export const categoryController = {
       const limit = Math.min(Math.max(parseInt(req.query.limit as string, 10) || 10, 1), 100);
       const offset = parseInt(req.query.offset as string, 10) || 0;
 
-      const result = await categoryService.findAll(limit, offset);
+      const result = await categoryModel.findAll(limit, offset);
       res.json(result);
     } catch (error) {
       logger.error("Failed to fetch categories", error);
@@ -25,7 +25,7 @@ export const categoryController = {
         return;
       }
 
-      const category = await categoryService.findById(id);
+      const category = await categoryModel.findById(id);
 
       if (!category) {
         res.status(404).json({ error: "Category not found" });
@@ -48,7 +48,8 @@ export const categoryController = {
         return;
       }
 
-      const category = await categoryService.create(name.trim(), description || null);
+      const category = await categoryModel.create(name.trim(), description || null);
+      logger.info(`Category created with id: ${category.id}`);
       res.status(201).json(category);
     } catch (error) {
       logger.error("Failed to create category", error);
@@ -72,13 +73,14 @@ export const categoryController = {
         return;
       }
 
-      const category = await categoryService.update(id, name || null, description ?? null);
+      const category = await categoryModel.update(id, name || null, description ?? null);
 
       if (!category) {
         res.status(404).json({ error: "Category not found" });
         return;
       }
 
+      logger.info(`Category updated: ${id}`);
       res.json(category);
     } catch (error) {
       logger.error("Failed to update category", error);
@@ -95,13 +97,14 @@ export const categoryController = {
         return;
       }
 
-      const deleted = await categoryService.delete(id);
+      const deleted = await categoryModel.delete(id);
 
       if (!deleted) {
         res.status(404).json({ error: "Category not found" });
         return;
       }
 
+      logger.info(`Category deleted: ${id}`);
       res.status(204).send();
     } catch (error) {
       if (error instanceof Error && error.message.includes("fk_category")) {
