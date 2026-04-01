@@ -7,6 +7,7 @@ import { env } from "./config/env";
 import { testConnection } from "./config/database";
 import { logger } from "./utils/log";
 import { categoryRoutes } from "./routes/category.routes";
+import { productRoutes } from "./routes/product.routes";
 
 
 const app = express()
@@ -25,6 +26,7 @@ app.get('/', (_req: Request, res: Response) => {
 })
 
 app.use("/api/categories", categoryRoutes);
+app.use("/api/products", productRoutes);
 
 app.listen(port, async () => {
   await testConnection();
