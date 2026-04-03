@@ -2,11 +2,12 @@
 
 import { useState } from "react";
 import { CategoriesTable } from "@/components/ui/CategoriesTable";
+import { ProductsTable } from "@/components/common/ProductsTable";
 
 const menuItems = [
-  {id: "data", label: "Data"},
-  {id: "orders", label: "Orders"},
-  {id: "settings", label: "Settings"},
+  { id: "data", label: "Data" },
+  { id: "orders", label: "Orders" },
+  { id: "settings", label: "Settings" },
 ];
 
 export default function HomePage() {
@@ -43,7 +44,22 @@ export default function HomePage() {
           {menuItems.find((item) => item.id === activeItem)?.label}
         </h1>
         <div className="bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
-          {activeItem === "data" && <CategoriesTable />}
+          {activeItem === "data" && (
+            <div className="space-y-8">
+              <div>
+                <h2 className="text-lg font-semibold mb-4 text-zinc-900 dark:text-white">
+                  Categories
+                </h2>
+                <CategoriesTable />
+              </div>
+              <div>
+                <h2 className="text-lg font-semibold mb-4 text-zinc-900 dark:text-white">
+                  Products
+                </h2>
+                <ProductsTable />
+              </div>
+            </div>
+          )}
           {activeItem === "orders" && (
             <p className="text-zinc-500 dark:text-zinc-400">Orders content</p>
           )}
