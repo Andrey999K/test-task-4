@@ -1,14 +1,15 @@
 "use client";
 
 import { useState } from "react";
+import { CategoriesTable } from "@/components/ui/CategoriesTable";
 
 const menuItems = [
-  { id: "data", label: "Data" },
-  { id: "orders", label: "Orders" },
-  { id: "settings", label: "Settings" },
+  {id: "data", label: "Data"},
+  {id: "orders", label: "Orders"},
+  {id: "settings", label: "Settings"},
 ];
 
-export default function Dashboard() {
+export default function HomePage() {
   const [activeItem, setActiveItem] = useState("data");
 
   return (
@@ -42,9 +43,13 @@ export default function Dashboard() {
           {menuItems.find((item) => item.id === activeItem)?.label}
         </h1>
         <div className="bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
-          <p className="text-zinc-500 dark:text-zinc-400">
-            Content for {activeItem} will be displayed here
-          </p>
+          {activeItem === "data" && <CategoriesTable />}
+          {activeItem === "orders" && (
+            <p className="text-zinc-500 dark:text-zinc-400">Orders content</p>
+          )}
+          {activeItem === "settings" && (
+            <p className="text-zinc-500 dark:text-zinc-400">Settings content</p>
+          )}
         </div>
       </main>
     </div>
