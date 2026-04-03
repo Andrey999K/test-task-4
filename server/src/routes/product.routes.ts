@@ -1,25 +1,12 @@
-import { Router, Response } from "express";
+import { Router } from "express";
+import { productController } from "@/controllers/product.controller";
 
 const router = Router();
 
-router.get("/", (_req, res: Response) => {
-  res.json({ message: "GET all products - TODO" });
-});
-
-router.get("/:id", (_req, res: Response) => {
-  res.json({ message: "GET product by id - TODO" });
-});
-
-router.post("/", (_req, res: Response) => {
-  res.json({ message: "POST create product - TODO" });
-});
-
-router.put("/:id", (_req, res: Response) => {
-  res.json({ message: "PUT update product - TODO" });
-});
-
-router.delete("/:id", (_req, res: Response) => {
-  res.json({ message: "DELETE product - TODO" });
-});
+router.get("/", productController.getAll);
+router.get("/:id", productController.getById);
+router.post("/", productController.create);
+router.put("/:id", productController.update);
+router.delete("/:id", productController.delete);
 
 export { router as productRoutes };
