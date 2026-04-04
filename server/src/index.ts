@@ -8,6 +8,7 @@ import { testConnection } from "./config/database";
 import { logger } from "./utils/log";
 import { categoryRoutes } from "./routes/category.routes";
 import { productRoutes } from "./routes/product.routes";
+import { notFound, errorHandler } from "./middleware/error.middleware";
 
 
 const app = express()
@@ -27,6 +28,9 @@ app.get('/', (_req: Request, res: Response) => {
 
 app.use("/api/categories", categoryRoutes);
 app.use("/api/products", productRoutes);
+
+app.use(notFound);
+app.use(errorHandler);
 
 app.listen(port, async () => {
   await testConnection();
