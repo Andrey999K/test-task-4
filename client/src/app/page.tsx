@@ -14,21 +14,21 @@ export default function HomePage() {
   const [activeItem, setActiveItem] = useState("data");
 
   return (
-    <div className="flex min-h-screen bg-zinc-100 dark:bg-zinc-900">
-      <aside className="w-64 bg-zinc-900 text-white flex flex-col">
-        <div className="p-6 text-xl font-bold border-b border-zinc-800">
+    <div className="flex min-h-screen bg-zinc-50 dark:bg-zinc-950">
+      <aside className="w-64 bg-white dark:bg-zinc-900 border-r border-zinc-200 dark:border-zinc-800 text-zinc-900 dark:text-white flex flex-col">
+        <div className="p-6 text-xl font-bold border-b border-zinc-200 dark:border-zinc-800">
           Dashboard
         </div>
         <nav className="flex-1 p-4">
-          <ul className="space-y-2">
+          <ul className="space-y-1">
             {menuItems.map((item) => (
               <li key={item.id}>
                 <button
                   onClick={() => setActiveItem(item.id)}
-                  className={`w-full text-left px-4 py-2 rounded transition-colors ${
+                  className={`w-full text-left px-4 py-2.5 rounded-lg transition-colors ${
                     activeItem === item.id
-                      ? "bg-blue-600 text-white"
-                      : "text-zinc-400 hover:bg-zinc-800 hover:text-white"
+                      ? "bg-zinc-100 dark:bg-zinc-800 text-zinc-900 dark:text-white font-medium"
+                      : "text-zinc-500 dark:text-zinc-400 hover:bg-zinc-100 dark:hover:bg-zinc-800 hover:text-zinc-900 dark:hover:text-white"
                   }`}
                 >
                   {item.label}
@@ -43,7 +43,7 @@ export default function HomePage() {
         <h1 className="text-2xl font-semibold mb-6 text-zinc-900 dark:text-white">
           {menuItems.find((item) => item.id === activeItem)?.label}
         </h1>
-        <div className="bg-white dark:bg-zinc-800 rounded-lg shadow p-6">
+        <div className="bg-white dark:bg-zinc-900 rounded-2xl border border-zinc-200 dark:border-zinc-800 shadow-sm p-6">
           {activeItem === "data" && (
             <div className="space-y-8">
               <div>
